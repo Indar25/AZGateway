@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -9,6 +11,20 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(options =>
+       {
+           options.Authority = "http://localhost:7171";
+           options.RequireHttpsMetadata = false;
+           options.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateAudience = false,
+               NameClaimType = "name",
+               RoleClaimType = "role"
+           };
+       });
+
 
         builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
         builder.Services.AddOcelot(builder.Configuration);

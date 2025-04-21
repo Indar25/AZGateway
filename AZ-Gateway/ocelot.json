@@ -4,7 +4,7 @@
   },
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/order/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -12,15 +12,15 @@
           "Port": 5283
         }
       ],
-      "UpstreamPathTemplate": "/gateway/order/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //}
+      "UpstreamPathTemplate": "/purchase/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "order.api" ]
+      }
     },
     {
-      "DownstreamPathTemplate": "/api/payment/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -28,28 +28,28 @@
           "Port": 5095
         }
       ],
-      "UpstreamPathTemplate": "/gateway/payment/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //}
+      "UpstreamPathTemplate": "/billing/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "payment.api" ]
+      }
     },
     {
-      "DownstreamPathTemplate": "/api/account/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5231
+          "Port": 7172
         }
       ],
-      "UpstreamPathTemplate": "/gateway/account/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //}
+      "UpstreamPathTemplate": "/account/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "account.api" ]
+      }
     }
   ]
 }
